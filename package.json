@@ -1,0 +1,30 @@
+{
+  "name": "tennis-scoring",
+  "version": "1.0.0",
+  "description": "Tennis Scoring App",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "build": "rm -rf dist/ && tsc",
+    "serve": "node dist/index.js",
+    "start": "npm run build && npm run serve"
+  },
+  "keywords": [
+    "Tennis",
+    "Scoring"
+  ],
+  "author": "Paul Hartono <paul.hartono@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "@types/node": "^12.12.12",
+    "dotenv": "^8.2.0"
+  }
+}
