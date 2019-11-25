@@ -128,18 +128,18 @@ export class Match {
     let runningScoreA = (this.scores && this.scores[0]) ? this.scores[0].scoreA.winningPoints : 0
     let runningScoreB = (this.scores && this.scores[0]) ? this.scores[0].scoreB.winningPoints : 0
 
-    let pointScoreSummary: string = `${runningScoreA}-${runningScoreB}`
+    let pointScoreSummary: string = `, ${runningScoreA}-${runningScoreB}`
 
     if (!this.rules.isTieBreak(gameScoreA, gameScoreB)) {
       if (this.rules.isDeuce(runningScoreA, runningScoreB)) {
-        pointScoreSummary = 'Deuce'
+        pointScoreSummary = ', Deuce'
       } else if (this.rules.isAdvantage(runningScoreA, runningScoreB)) {
-        pointScoreSummary = (runningScoreA > runningScoreB) ? 'Advantage Player 1' : 'Advantage Player 2'
+        pointScoreSummary = (runningScoreA > runningScoreB) ? ', Advantage Player 1' : 'Advantage Player 2'
       } else {
-        pointScoreSummary = (runningScoreA===0 && runningScoreB===0) ? '' : `${Point[runningScoreA]}-${Point[runningScoreB]}`
+        pointScoreSummary = (runningScoreA===0 && runningScoreB===0) ? '' : `, ${Point[runningScoreA]}-${Point[runningScoreB]}`
       }
     } 
 
-    return `${gameScoreA}-${gameScoreB}, ${pointScoreSummary}`
+    return `${gameScoreA}-${gameScoreB} ${pointScoreSummary}`
   }
 }
