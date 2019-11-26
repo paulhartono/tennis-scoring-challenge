@@ -5,7 +5,7 @@ This *tennis-scoring-challenge* code is written in node.js - so please make sure
 Alternatively, you can run this project using docker as described below
 
 ### Environment Variables
-*NUMBER_OF_SETS* This will set the total sets required to play a match  
+`NUMBER_OF_SETS` This will set the total sets required to play a match  
 (Currently tested for 1 set ONLY)
 
 ### Using Docker
