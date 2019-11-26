@@ -8,7 +8,8 @@
     "test:coverage": "jest --coverage",
     "build": "rm -rf dist/ && tsc",
     "serve": "node dist/index.js",
-    "start": "npm run build && npm run serve"
+    "start": "npm run build && npm run serve",
+    "dev": "tsnd src/index.ts"
   },
   "keywords": [
     "Tennis",

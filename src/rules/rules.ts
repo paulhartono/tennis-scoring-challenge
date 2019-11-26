@@ -48,7 +48,7 @@ export class Rules {
 
 
   // Rules if we wanted to go further with multiple sets
-  /*isMatchEnded(setScoreA: number, setScoreB: number): boolean {
+  isMatchEnded(setScoreA: number, setScoreB: number): boolean {
     let leader = (setScoreA > setScoreB) ? setScoreA : setScoreB
     if (this.totalSets === 1) {
       return (setScoreA !== setScoreB)
@@ -56,7 +56,7 @@ export class Rules {
       return (
         this.totalSets >= (setScoreA + setScoreB) &&
         setScoreA !== setScoreB &&
-        Math.abs(setScoreA - setScoreB) >= ((this.totalSets-1)/2)+1
+        (setScoreA === ((this.totalSets-1)/2)+1 || setScoreB === ((this.totalSets-1)/2)+1)
       )
     }
 
@@ -71,5 +71,5 @@ export class Rules {
     // 2 * (a-1) = totalset - 1
     // a-1 = (totalset-1)/2
     // a = ((totalset-1)/2)+1
-  }*/
+  }
 }
