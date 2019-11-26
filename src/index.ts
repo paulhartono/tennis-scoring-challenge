@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import * as readline from 'readline'
 import Match from './match';
 import Rules from './rules';
 
