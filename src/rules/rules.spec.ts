@@ -116,6 +116,12 @@ describe('Rules', () => {
       expect(result).toEqual(true)
     })
 
+    test('should return true when: Winner has 3 winning set, when Total Set required is 5' , () => {
+      rules = new Rules(5)
+      let result = rules.isMatchEnded(2,3)
+      expect(result).toEqual(true)
+    })
+
     test('should return false when: Winner has 3 winning set, when Total Set required is 5' , () => {
       rules = new Rules(5)
       let result = rules.isMatchEnded(3,1)

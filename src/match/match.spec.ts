@@ -1,5 +1,6 @@
-import Match from "."
+import Match, { PlayerScore } from "."
 import Rules from "../rules"
+import Player from "../player"
 
 
 
@@ -34,6 +35,68 @@ describe('Rules', () => {
       expect(match.scores[0].scoreA.winningPoints).toEqual(0)
       expect(match.scores[0].scoreB.winningPoints).toEqual(0)
       expect(match.scores[0].winner).toEqual(undefined)
+    })
+  })
+
+  describe('_pointForA', () => {
+
+    test('Ignore when match has been concluded with a winner' , () => {
+      
+      expect.assertions(5);
+      
+      let player1Score: PlayerScore = {
+        winningPoints: 0,
+        winningGames: 6
+      }
+      let player2Score: PlayerScore = {
+        winningPoints: 0,
+        winningGames: 3
+      }
+      let setScores = {
+        winner: {name: 'player 1'} as Player,
+        scoreA: player1Score,
+        scoreB: player2Score
+      }
+      match.scores = []
+      match.scores.push(setScores)
+
+      match._pointForA();
+      expect(match.scores[0].scoreA.winningPoints).toEqual(0)
+      expect(match.scores[0].scoreA.winningGames).toEqual(6)
+      expect(match.scores[0].scoreB.winningPoints).toEqual(0)
+      expect(match.scores[0].scoreB.winningGames).toEqual(3)
+      expect(match.scores[0].winner).toEqual({name: 'player 1'})
+    })
+  })
+
+  describe('_pointForB', () => {
+
+    test('Ignore when match has been concluded with a winner' , () => {
+      
+      expect.assertions(5);
+      
+      let player1Score: PlayerScore = {
+        winningPoints: 0,
+        winningGames: 6
+      }
+      let player2Score: PlayerScore = {
+        winningPoints: 0,
+        winningGames: 3
+      }
+      let setScores = {
+        winner: {name: 'player 1'} as Player,
+        scoreA: player1Score,
+        scoreB: player2Score
+      }
+      match.scores = []
+      match.scores.push(setScores)
+
+      match._pointForB();
+      expect(match.scores[0].scoreA.winningPoints).toEqual(0)
+      expect(match.scores[0].scoreA.winningGames).toEqual(6)
+      expect(match.scores[0].scoreB.winningPoints).toEqual(0)
+      expect(match.scores[0].scoreB.winningGames).toEqual(3)
+      expect(match.scores[0].winner).toEqual({name: 'player 1'})
     })
   })
 
@@ -152,11 +215,57 @@ describe('Rules', () => {
       let result = match.score()
       expect(result).toEqual('0-0')
     })
+
+    test('Display Running Score in a game' , () => {      
+      let player1Score: PlayerScore = {
+        winningPoints: 2,
+        winningGames: 3
+      }
+      let player2Score: PlayerScore = {
+        winningPoints: 1,
+        winningGames: 3
+      }
+      let setScores = {
+        scoreA: player1Score,
+        scoreB: player2Score
+      }
+      match.scores = []
+      match.scores.push(setScores)
+
+      let result = match.score()
+      expect(result).toEqual('3-3, 30-15')
+    })
   })
 
   describe('_consolidatePointOutcome', () => {
+    test('Tie break has been won - Unit Test' , () => {
+      
+      expect.assertions(5);
+      
+      let player1Score: PlayerScore = {
+        winningPoints: 7,
+        winningGames: 6
+      }
+      let player2Score: PlayerScore = {
+        winningPoints: 4,
+        winningGames: 6
+      }
+      let setScores = {
+        scoreA: player1Score,
+        scoreB: player2Score
+      }
+      match.scores = []
+      match.scores.push(setScores)
 
-    test('Tie break has been won' , () => {
+      match._consolidatePointOutcome()
+      expect(match.scores[0].scoreA.winningPoints).toEqual(0)
+      expect(match.scores[0].scoreA.winningGames).toEqual(7)
+      expect(match.scores[0].scoreB.winningPoints).toEqual(0)
+      expect(match.scores[0].scoreB.winningGames).toEqual(6)
+      expect(match.scores[0].winner).toEqual({name: 'player 1'})
+    })
+
+    test('Tie break has been won - High Level' , () => {
       
       expect.assertions(5);
       
@@ -181,6 +290,8 @@ describe('Rules', () => {
       expect(match.scores[0].scoreB.winningGames).toEqual(7)
       expect(match.scores[0].winner).toEqual({name: 'player 2'})
     })
+
+    
 
   })
 })

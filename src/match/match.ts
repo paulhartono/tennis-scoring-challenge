@@ -27,24 +27,25 @@ export class Match {
 
   // just giving an idea on how I would extend to use multiple sets
   resetLastRunningScore() { 
-    if (this.scores && this.scores.length > 0) {
-      this.scores[this.scores.length-1].scoreA.winningPoints = 0
-      this.scores[this.scores.length-1].scoreB.winningPoints = 0
-      this.scores[this.scores.length-1].winner = undefined
-    }
+    
+    this.scores[this.scores.length-1].scoreA.winningPoints = 0
+    this.scores[this.scores.length-1].scoreB.winningPoints = 0
+    this.scores[this.scores.length-1].winner = undefined
   }
   
   _consolidatePointOutcome() {
 
-    if (this.scores && this.scores.length > 0) {
-    
       let lastSet = this.scores.length-1
 
-      let gameScoreA = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreA.winningGames : 0
-      let gameScoreB = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreB.winningGames : 0
-      let runningScoreA = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreA.winningPoints : 0
-      let runningScoreB = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreB.winningPoints : 0
-
+      // let gameScoreA = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreA.winningGames : 0
+      // let gameScoreB = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreB.winningGames : 0
+      // let runningScoreA = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreA.winningPoints : 0
+      // let runningScoreB = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreB.winningPoints : 0
+      let gameScoreA = this.scores[lastSet].scoreA.winningGames 
+      let gameScoreB = this.scores[lastSet].scoreB.winningGames
+      let runningScoreA = this.scores[lastSet].scoreA.winningPoints 
+      let runningScoreB = this.scores[lastSet].scoreB.winningPoints 
+      
       // check for tie break
       let isTiebreak = this.rules.isTieBreak(gameScoreA, gameScoreB)
       if (isTiebreak) {
@@ -84,7 +85,6 @@ export class Match {
         }
       }
 
-    }
   }
 
   _pointForA() {
@@ -93,19 +93,10 @@ export class Match {
     if (winnerPlayer) return
 
     let lastSet = this.scores.length-1
-
-    if (this.scores.length === 0) {
-      let newScore: PlayerScore = { 
-        winningPoints: 1,
-        winningGames: 0
-      }
-      
-      this.scores.push({scoreA: newScore} as SetScore)
-    }
-    else {
-      this.scores[lastSet].scoreA.winningPoints++
-      this._consolidatePointOutcome()
-    }
+   
+    this.scores[lastSet].scoreA.winningPoints++
+    this._consolidatePointOutcome()
+   
   }
 
   _pointForB() {
@@ -115,17 +106,8 @@ export class Match {
 
     let lastSet = this.scores.length-1
 
-    if (this.scores.length === 0) {
-      let newScore: PlayerScore = { 
-        winningPoints: 1,
-        winningGames: 0
-      }
-      this.scores.push({scoreB: newScore} as SetScore)
-    }
-    else {
-      this.scores[lastSet].scoreB.winningPoints++
-      this._consolidatePointOutcome()
-    }
+    this.scores[lastSet].scoreB.winningPoints++
+    this._consolidatePointOutcome()
   }
 
   _getMatchWinner(): Player | null {
@@ -161,10 +143,14 @@ export class Match {
   score(): string {
     let lastSet = this.scores.length-1
 
-    let gameScoreA = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreA.winningGames : 0
-    let gameScoreB = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreB.winningGames : 0
-    let runningScoreA = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreA.winningPoints : 0
-    let runningScoreB = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreB.winningPoints : 0
+    // let gameScoreA = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreA.winningGames : 0
+    // let gameScoreB = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreB.winningGames : 0
+    // let runningScoreA = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreA.winningPoints : 0
+    // let runningScoreB = (this.scores && this.scores[lastSet]) ? this.scores[lastSet].scoreB.winningPoints : 0
+    let gameScoreA = this.scores[lastSet].scoreA.winningGames 
+    let gameScoreB = this.scores[lastSet].scoreB.winningGames
+    let runningScoreA = this.scores[lastSet].scoreA.winningPoints 
+    let runningScoreB = this.scores[lastSet].scoreB.winningPoints 
 
     let pointScoreSummary: string = `, ${runningScoreA}-${runningScoreB}`
 

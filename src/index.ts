@@ -16,8 +16,9 @@ try {
   let rules: Rules = new Rules(Number(process.env.NUMBER_OF_SETS)) // NUMBER_OF_SETS is not used, just an example of usage 
   let match: Match = new Match(rules, {name: 'player 1'}, {name: 'player 2'})
   
-
+  console.log(match.score())
   match.pointWonBy("player 1");
+  console.log(match.score())
   match.pointWonBy("player 2");
   // this will return "0-0, 15-15"
   console.log(match.score())
